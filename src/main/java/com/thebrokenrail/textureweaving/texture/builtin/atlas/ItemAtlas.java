@@ -103,6 +103,7 @@ public class ItemAtlas extends Texture {
         item("painting", 10, 1);
         item("sugar_cane", 11, 1);
         item("bone", 12, 1);
+        item("slime_ball", 14, 1);
         item("arrow", 5, 2);
         item("gold_ingot", 7, 2);
         item("gunpowder", 8, 2);
