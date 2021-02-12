@@ -8,6 +8,6 @@ TextureWeaving <stitch|cut> <input> <output>
 
 ### Example
 ```she
-java -jar TextureWeaving-1.0-SNAPSHOT.jar cut ~/Documents/mcpi/data out
-java -jar TextureWeaving-1.0-SNAPSHOT.jar stitch out ~/Documents/mcpi/data
+java -jar TextureWeaving-1.0-SNAPSHOT.jar cut ~/Documents/mcpi/data/images out
+java -jar TextureWeaving-1.0-SNAPSHOT.jar stitch out ~/Documents/mcpi/data/images
 ```
