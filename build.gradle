@@ -1,0 +1,14 @@
+plugins {
+    id 'application'
+}
+
+group 'com.thebrokenrail'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'com.thebrokenrail.minecraftbakery.Main'
+}
