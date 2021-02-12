@@ -10,5 +10,5 @@ repositories {
 }
 
 application {
-    mainClass = 'com.thebrokenrail.minecraftbakery.Main'
+    mainClass = 'com.thebrokenrail.textureweaving.Main'
 }
