@@ -3,13 +3,40 @@ package com.thebrokenrail.textureweaving;
 import com.thebrokenrail.textureweaving.texture.Texture;
 import com.thebrokenrail.textureweaving.texture.builtin.BuiltinTextures;
 
+import java.util.Objects;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
+import java.nio.file.FileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+
+class DeleteFileVisitor<T> implements FileVisitor<T> {
+    protected DeleteFileVisitor() {
+    }
+
+    public FileVisitResult visitFile(T file, BasicFileAttributes attrs) throws IOException {
+        Files.delete((Path)file);
+        return FileVisitResult.CONTINUE;
+    }
+
+    public FileVisitResult postVisitDirectory(T dir, IOException exc) throws IOException {
+        Files.delete((Path)dir);
+        return FileVisitResult.CONTINUE;
+    }
+
+    public FileVisitResult preVisitDirectory(T dir, BasicFileAttributes attrs) throws IOException {
+        Objects.requireNonNull(dir);
+        Objects.requireNonNull(attrs);
+        return FileVisitResult.CONTINUE;
+    }
+
+    public FileVisitResult visitFileFailed(T file, IOException exc) throws IOException {
+        Objects.requireNonNull(file);
+        throw exc;
+    }
+}
 
 public class Main {
     private static void help() {
@@ -32,19 +59,7 @@ public class Main {
 
                     if (output.exists()) {
                         try {
-                            Files.walkFileTree(output.toPath(), new SimpleFileVisitor<>() {
-                                @Override
-                                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                                    Files.delete(file);
-                                    return FileVisitResult.CONTINUE;
-                                }
-
-                                @Override
-                                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                                    Files.delete(dir);
-                                    return FileVisitResult.CONTINUE;
-                                }
-                            });
+                            Files.walkFileTree(output.toPath(), new DeleteFileVisitor<Path>());
                         } catch (IOException e) {
                             System.err.println("Unable To Clean Output Directory: " + e);
                             System.exit(1);
