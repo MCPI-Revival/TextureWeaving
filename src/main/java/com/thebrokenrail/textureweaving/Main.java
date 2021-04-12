@@ -32,7 +32,7 @@ public class Main {
 
                     if (output.exists()) {
                         try {
-                            Files.walkFileTree(output.toPath(), new SimpleFileVisitor<>() {
+                            Files.walkFileTree(output.toPath(), new SimpleFileVisitor<Path>() {
                                 @Override
                                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                                     Files.delete(file);
